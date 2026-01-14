@@ -44,19 +44,19 @@ const suggestions = [
         <div class="mb-8">
             <svg width="80" height="56" viewBox="0 0 80 56" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <!-- Body -->
-                <rect x="16" y="8" width="48" height="40" rx="4" fill="#e07a5f" />
+                <rect x="16" y="8" width="48" height="40" rx="4" fill="#C4856F" />
                 <!-- Eyes -->
                 <rect x="28" y="20" width="8" height="8" rx="1" fill="#141414" />
                 <rect x="44" y="20" width="8" height="8" rx="1" fill="#141414" />
                 <!-- Feet -->
-                <rect x="24" y="48" width="12" height="8" rx="2" fill="#e07a5f" />
-                <rect x="44" y="48" width="12" height="8" rx="2" fill="#e07a5f" />
+                <rect x="24" y="48" width="12" height="8" rx="2" fill="#C4856F" />
+                <rect x="44" y="48" width="12" height="8" rx="2" fill="#C4856F" />
                 <!-- Antenna left -->
-                <rect x="24" y="0" width="4" height="12" rx="2" fill="#e07a5f" />
-                <circle cx="26" cy="0" r="3" fill="#e07a5f" />
+                <rect x="24" y="0" width="4" height="12" rx="2" fill="#C4856F" />
+                <circle cx="26" cy="0" r="3" fill="#C4856F" />
                 <!-- Antenna right -->
-                <rect x="52" y="0" width="4" height="12" rx="2" fill="#e07a5f" />
-                <circle cx="54" cy="0" r="3" fill="#e07a5f" />
+                <rect x="52" y="0" width="4" height="12" rx="2" fill="#C4856F" />
+                <circle cx="54" cy="0" r="3" fill="#C4856F" />
             </svg>
         </div>
 
@@ -80,12 +80,12 @@ const suggestions = [
                         class="min-w-[200px] rounded-lg border border-[#2b2b2b] bg-[#202020] p-1 shadow-xl"
                     >
                         <DropdownMenuItem
-                            class="cursor-pointer rounded-md px-3 py-2 text-[13px] text-[#a1a1aa] transition-colors outline-none hover:bg-white/5 hover:text-[#f3f4f6]"
+                            class="cursor-pointer rounded-md px-3 py-2 text-[13px] text-[#a1a1aa] transition-colors outline-none hover:bg-white/5 hover:text-[#E0E0DE]"
                         >
                             MohamedAshrafElsaed/ab
                         </DropdownMenuItem>
                         <DropdownMenuItem
-                            class="cursor-pointer rounded-md px-3 py-2 text-[13px] text-[#a1a1aa] transition-colors outline-none hover:bg-white/5 hover:text-[#f3f4f6]"
+                            class="cursor-pointer rounded-md px-3 py-2 text-[13px] text-[#a1a1aa] transition-colors outline-none hover:bg-white/5 hover:text-[#E0E0DE]"
                         >
                             MohamedAshrafElsaed/AIBuilder
                         </DropdownMenuItem>
@@ -109,12 +109,12 @@ const suggestions = [
                         class="min-w-[120px] rounded-lg border border-[#2b2b2b] bg-[#202020] p-1 shadow-xl"
                     >
                         <DropdownMenuItem
-                            class="cursor-pointer rounded-md px-3 py-2 text-[13px] text-[#a1a1aa] transition-colors outline-none hover:bg-white/5 hover:text-[#f3f4f6]"
+                            class="cursor-pointer rounded-md px-3 py-2 text-[13px] text-[#a1a1aa] transition-colors outline-none hover:bg-white/5 hover:text-[#E0E0DE]"
                         >
                             Default
                         </DropdownMenuItem>
                         <DropdownMenuItem
-                            class="cursor-pointer rounded-md px-3 py-2 text-[13px] text-[#a1a1aa] transition-colors outline-none hover:bg-white/5 hover:text-[#f3f4f6]"
+                            class="cursor-pointer rounded-md px-3 py-2 text-[13px] text-[#a1a1aa] transition-colors outline-none hover:bg-white/5 hover:text-[#E0E0DE]"
                         >
                             Custom
                         </DropdownMenuItem>
@@ -132,12 +132,12 @@ const suggestions = [
                 @click="emit('suggestionClick', suggestion.id)"
             >
                 <div class="flex-1 pr-4">
-                    <h3 class="mb-1.5 text-[14px] font-medium text-[#f3f4f6]">{{ suggestion.title }}</h3>
+                    <h3 class="mb-1.5 text-[14px] font-medium text-[#E0E0DE]">{{ suggestion.title }}</h3>
                     <p class="text-[13px] leading-relaxed text-[#808080]">{{ suggestion.description }}</p>
                 </div>
                 <div v-if="suggestion.badge" class="flex flex-shrink-0 flex-col items-end">
                     <template v-if="suggestion.badge.type === 'code'">
-                        <code class="rounded bg-[#252525] px-2 py-1 text-[11px] text-[#e07a5f]">{{ suggestion.badge.text }}</code>
+                        <code class="rounded bg-[#252525] px-2 py-1 text-[11px] text-[#C4856F]">{{ suggestion.badge.text }}</code>
                         <span class="mt-1 text-[11px] text-[#666666]">{{ suggestion.badge.subtext }}</span>
                     </template>
                     <template v-else>

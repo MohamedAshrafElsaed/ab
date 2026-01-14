@@ -108,10 +108,10 @@ const getActionLabel = (type: string): string => {
         <header class="flex h-12 items-center justify-between border-b border-[#2b2b2b] bg-[#1b1b1b] px-4">
             <div class="flex items-center gap-2">
                 <div class="flex h-5 w-5 items-center justify-center">
-                    <div class="h-3 w-3 animate-spin rounded-full border-2 border-[#e07a5f] border-t-transparent" />
+                    <div class="h-3 w-3 animate-spin rounded-full border-2 border-[#C4856F] border-t-transparent" />
                 </div>
                 <button class="flex items-center gap-1.5 rounded-md px-2 py-1 transition-colors hover:bg-white/5">
-                    <span class="max-w-[300px] truncate text-[13px] font-medium text-[#f3f4f6]"> Update app color scheme to match design </span>
+                    <span class="max-w-[300px] truncate text-[13px] font-medium text-[#E0E0DE]"> Update app color scheme to match design </span>
                     <ChevronDown class="h-3.5 w-3.5 text-[#666666]" />
                 </button>
             </div>
@@ -126,12 +126,12 @@ const getActionLabel = (type: string): string => {
                                 class="flex h-7 w-7 items-center justify-center rounded-md transition-colors hover:bg-white/10"
                                 @click="copyBranchName"
                             >
-                                <Check v-if="copied" class="h-4 w-4 text-[#4ade80]" />
+                                <Check v-if="copied" class="h-4 w-4 text-[#6B9E7A]" />
                                 <Copy v-else class="h-4 w-4 text-[#666666]" />
                             </button>
                         </TooltipTrigger>
                         <TooltipPortal>
-                            <TooltipContent :side-offset="8" class="rounded-md bg-[#343434] px-2 py-1 text-[11px] text-[#f3f4f6] shadow-lg">
+                            <TooltipContent :side-offset="8" class="rounded-md bg-[#343434] px-2 py-1 text-[11px] text-[#E0E0DE] shadow-lg">
                                 {{ copied ? 'Copied!' : 'Copy branch name' }}
                             </TooltipContent>
                         </TooltipPortal>
@@ -152,8 +152,8 @@ const getActionLabel = (type: string): string => {
                 <!-- Loading state -->
                 <div v-if="isLoading" class="flex items-center justify-center py-32">
                     <div class="flex items-center gap-2">
-                        <Sparkles class="loading-pulse h-4 w-4 text-[#e07a5f]" />
-                        <span class="loading-shimmer text-[14px] font-medium text-[#e07a5f]">
+                        <Sparkles class="loading-pulse h-4 w-4 text-[#C4856F]" />
+                        <span class="loading-shimmer text-[14px] font-medium text-[#C4856F]">
                             {{ currentLoadingStatus }}
                         </span>
                     </div>
@@ -163,11 +163,11 @@ const getActionLabel = (type: string): string => {
                 <div v-else class="space-y-4">
                     <!-- Activity items -->
                     <div v-for="(item, idx) in activity" :key="idx" class="flex items-start gap-3">
-                        <div class="mt-1.5 h-2 w-2 flex-shrink-0 rounded-full bg-[#4ade80]" />
+                        <div class="mt-1.5 h-2 w-2 flex-shrink-0 rounded-full bg-[#6B9E7A]" />
                         <div class="flex-1">
                             <!-- Todo type -->
                             <template v-if="item.type === 'todo'">
-                                <span class="text-[13px] font-medium text-[#f3f4f6]">Update Todos</span>
+                                <span class="text-[13px] font-medium text-[#E0E0DE]">Update Todos</span>
                                 <div v-if="item.items" class="mt-2 space-y-1.5 pl-1">
                                     <div v-for="(todo, i) in item.items" :key="i" class="flex items-center gap-2">
                                         <Circle class="h-3 w-3 text-[#666666]" />
@@ -178,7 +178,7 @@ const getActionLabel = (type: string): string => {
                             <!-- Other types -->
                             <template v-else>
                                 <div class="flex flex-wrap items-center gap-2">
-                                    <span class="text-[13px] font-medium text-[#f3f4f6]">
+                                    <span class="text-[13px] font-medium text-[#E0E0DE]">
                                         {{ getActionLabel(item.type) }}
                                     </span>
                                     <code v-if="item.path" class="rounded bg-[#202020] px-1.5 py-0.5 text-[11px] text-[#a1a1aa]">
@@ -197,15 +197,15 @@ const getActionLabel = (type: string): string => {
 
                     <!-- Write action with diff -->
                     <div class="flex items-start gap-3">
-                        <div class="mt-1.5 h-2 w-2 flex-shrink-0 rounded-full bg-[#4ade80]" />
+                        <div class="mt-1.5 h-2 w-2 flex-shrink-0 rounded-full bg-[#6B9E7A]" />
                         <div class="flex-1">
-                            <p class="mb-2 text-[13px] text-[#f3f4f6]">
+                            <p class="mb-2 text-[13px] text-[#E0E0DE]">
                                 Now I'll create a custom VerifyEmail notification that uses the
-                                <code class="rounded bg-[#202020] px-1.5 py-0.5 text-[11px] text-[#e07a5f]">emails</code>
+                                <code class="rounded bg-[#202020] px-1.5 py-0.5 text-[11px] text-[#C4856F]">emails</code>
                                 queue:
                             </p>
                             <div class="flex flex-wrap items-center gap-2">
-                                <span class="text-[13px] font-medium text-[#f3f4f6]">Write</span>
+                                <span class="text-[13px] font-medium text-[#E0E0DE]">Write</span>
                                 <code class="rounded bg-[#202020] px-1.5 py-0.5 text-[11px] text-[#a1a1aa]">
                                     /home/user/.../VerifyEmailNotification.php
                                 </code>
@@ -216,12 +216,12 @@ const getActionLabel = (type: string): string => {
                                 <div class="overflow-x-auto">
                                     <table class="w-full font-mono text-[11px]">
                                         <tbody>
-                                            <tr v-for="line in diffLines" :key="line.num" class="bg-[#4ade80]/5">
+                                            <tr v-for="line in diffLines" :key="line.num" class="bg-[#6B9E7A]/5">
                                                 <td class="w-10 border-r border-[#2b2b2b] px-2 py-0.5 text-right text-[#666666] select-none">
                                                     {{ line.num }}
                                                 </td>
-                                                <td class="w-5 px-1 py-0.5 text-center text-[#4ade80] select-none">+</td>
-                                                <td class="px-2 py-0.5 whitespace-pre text-[#4ade80]">
+                                                <td class="w-5 px-1 py-0.5 text-center text-[#6B9E7A] select-none">+</td>
+                                                <td class="px-2 py-0.5 whitespace-pre text-[#6B9E7A]">
                                                     {{ line.code }}
                                                 </td>
                                             </tr>
@@ -237,7 +237,7 @@ const getActionLabel = (type: string): string => {
 
                             <div class="mt-3 flex justify-end">
                                 <button
-                                    class="flex items-center gap-2 rounded-lg bg-[#e07a5f] px-4 py-2 text-[13px] font-medium text-[#141414] transition-colors hover:bg-[#d66b50]"
+                                    class="flex items-center gap-2 rounded-lg bg-[#C4856F] px-4 py-2 text-[13px] font-medium text-[#141414] transition-colors hover:bg-[#d66b50]"
                                 >
                                     View PR
                                     <ExternalLink class="h-3.5 w-3.5" />
@@ -248,8 +248,8 @@ const getActionLabel = (type: string): string => {
 
                     <!-- Final todo -->
                     <div class="flex items-start gap-3">
-                        <div class="mt-1.5 h-2 w-2 flex-shrink-0 rounded-full bg-[#4ade80]" />
-                        <span class="text-[13px] font-medium text-[#f3f4f6]">Update Todos</span>
+                        <div class="mt-1.5 h-2 w-2 flex-shrink-0 rounded-full bg-[#6B9E7A]" />
+                        <span class="text-[13px] font-medium text-[#E0E0DE]">Update Todos</span>
                     </div>
                 </div>
             </div>
@@ -263,7 +263,7 @@ const getActionLabel = (type: string): string => {
                         v-model="replyMessage"
                         type="text"
                         placeholder="Reply..."
-                        class="w-full bg-transparent px-4 py-3.5 pr-20 text-[13px] text-[#f3f4f6] outline-none placeholder:text-[#666666]"
+                        class="w-full bg-transparent px-4 py-3.5 pr-20 text-[13px] text-[#E0E0DE] outline-none placeholder:text-[#666666]"
                     />
                     <div class="absolute bottom-2.5 left-2.5">
                         <button
@@ -275,7 +275,7 @@ const getActionLabel = (type: string): string => {
                     <div class="absolute right-2.5 bottom-2.5">
                         <button
                             class="flex h-8 w-8 items-center justify-center rounded-full transition-all"
-                            :class="replyMessage.trim() ? 'bg-[#e07a5f] text-[#141414]' : 'bg-[#3a3a3a] text-[#666666]'"
+                            :class="replyMessage.trim() ? 'bg-[#C4856F] text-[#141414]' : 'bg-[#3a3a3a] text-[#666666]'"
                         >
                             <Send class="h-4 w-4" />
                         </button>
@@ -287,12 +287,13 @@ const getActionLabel = (type: string): string => {
 </template>
 
 <style scoped>
+/* Subtle, slow animations for less visual noise */
 .loading-shimmer {
-    animation: shimmer 1.5s ease-in-out infinite;
+    animation: shimmer 3s ease-in-out infinite;
 }
 
 .loading-pulse {
-    animation: pulse 1.5s ease-in-out infinite;
+    animation: pulse 3s ease-in-out infinite;
 }
 
 @keyframes shimmer {
@@ -301,7 +302,7 @@ const getActionLabel = (type: string): string => {
         opacity: 1;
     }
     50% {
-        opacity: 0.6;
+        opacity: 0.8;
     }
 }
 
@@ -309,11 +310,9 @@ const getActionLabel = (type: string): string => {
     0%,
     100% {
         opacity: 1;
-        transform: scale(1);
     }
     50% {
-        opacity: 0.6;
-        transform: scale(0.95);
+        opacity: 0.8;
     }
 }
 </style>
