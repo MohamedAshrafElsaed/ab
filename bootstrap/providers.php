@@ -9,5 +9,6 @@ return [
     App\Providers\OrchestratorServiceProvider::class,
     App\Providers\PlanningAgentServiceProvider::class,
     App\Providers\PromptServiceProvider::class,
+    App\Providers\RateLimitingServiceProvider::class,
     App\Providers\RetrievalServiceProvider::class,
 ];

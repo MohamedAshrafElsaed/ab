@@ -127,6 +127,36 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
 
+        'requests' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/requests.log'),
+            'level' => env('LOG_REQUESTS_LEVEL', 'info'),
+            'days' => env('LOG_REQUESTS_DAYS', 7),
+            'replace_placeholders' => true,
+        ],
+
+        'slow-queries' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/slow-queries.log'),
+            'level' => 'warning',
+            'days' => env('LOG_SLOW_QUERIES_DAYS', 14),
+            'replace_placeholders' => true,
+        ],
+
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Request Logging Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Configure whether to log API requests and responses. This can be useful
+    | for debugging but may impact performance in production.
+    |
+    */
+
+    'log_requests' => env('LOG_REQUESTS', false),
+    'log_request_headers' => env('LOG_REQUEST_HEADERS', false),
+    'log_request_body' => env('LOG_REQUEST_BODY', false),
 
 ];
