@@ -1,0 +1,15 @@
+
+   ERROR  Command "cache:clearTo" is not defined. Did you mean one of these?  
+
+  ⇂ cache:clear  
+  ⇂ cache:forget  
+  ⇂ cache:prune-stale-tags  
+  ⇂ cache:table  
+  ⇂ config:clear  
+  ⇂ event:clear  
+  ⇂ horizon:clear  
+  ⇂ optimize:clear  
+  ⇂ queue:clear  
+  ⇂ route:clear  
+  ⇂ view:clear  
+

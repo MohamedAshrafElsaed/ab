@@ -47,9 +47,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Ask AI page (Inertia)
     Route::get('/projects/{project}/ask', [ProjectController::class, 'askAI'])->name('projects.ask');
 
-    Route::delete('/settings/social-accounts/{provider}', [SocialAccountController::class, 'destroy'])
-        ->whereIn('provider', ['github', 'google'])
-        ->name('settings.social-accounts.destroy');
+    Route::delete('/settings/social-accounts/{provider}', [SocialAccountController::class, 'destroy'])->whereIn('provider', ['github', 'google'])->name('settings.social-accounts.destroy');
 });
 
 require __DIR__ . '/settings.php';
