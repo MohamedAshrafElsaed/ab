@@ -10,6 +10,12 @@ return new class extends Migration
 {
     public function up(): void
     {
+        // This migration changes integer IDs to UUIDs which requires MySQL-specific operations
+        // Skip for non-MySQL databases (SQLite doesn't support the required ALTER TABLE operations)
+        if (DB::connection()->getDriverName() !== 'mysql') {
+            return;
+        }
+
         // Step 1: Add UUID column to projects
         Schema::table('projects', function (Blueprint $table) {
             $table->uuid('uuid')->nullable()->after('id');
@@ -72,13 +78,17 @@ return new class extends Migration
             $table->dropIndex(['project_id', 'is_excluded']);
             $table->dropIndex(['project_id', 'language']);
         });
-        DB::statement('ALTER TABLE `project_files` DROP INDEX `project_files_project_id_path_index`');
+        if (DB::connection()->getDriverName() === 'mysql') {
+            DB::statement('ALTER TABLE `project_files` DROP INDEX `project_files_project_id_path_index`');
+        }
 
         Schema::table('project_file_chunks', function (Blueprint $table) {
             $table->dropIndex(['project_id', 'chunk_id']);
             $table->dropIndex(['project_id', 'chunk_sha1']);
         });
-        DB::statement('ALTER TABLE `project_file_chunks` DROP INDEX `project_file_chunks_project_id_path_index`');
+        if (DB::connection()->getDriverName() === 'mysql') {
+            DB::statement('ALTER TABLE `project_file_chunks` DROP INDEX `project_file_chunks_project_id_path_index`');
+        }
 
         // Step 7: Drop old project_id columns
         Schema::table('project_scans', function (Blueprint $table) {
@@ -115,8 +125,10 @@ return new class extends Migration
             $table->renameColumn('uuid', 'id');
         });
 
-        // Step 10: Make id primary key
-        DB::statement('ALTER TABLE `projects` ADD PRIMARY KEY (`id`)');
+        // Step 10: Make id primary key (MySQL only)
+        if (DB::connection()->getDriverName() === 'mysql') {
+            DB::statement('ALTER TABLE `projects` ADD PRIMARY KEY (`id`)');
+        }
 
         // Step 11: Make project_id columns not nullable and add foreign keys
         Schema::table('project_scans', function (Blueprint $table) {
@@ -133,7 +145,9 @@ return new class extends Migration
             $table->index(['project_id', 'is_excluded']);
             $table->index(['project_id', 'language']);
         });
-        DB::statement('ALTER TABLE `project_files` ADD INDEX `project_files_project_id_path_index` (`project_id`, `path`(255))');
+        if (DB::connection()->getDriverName() === 'mysql') {
+            DB::statement('ALTER TABLE `project_files` ADD INDEX `project_files_project_id_path_index` (`project_id`, `path`(255))');
+        }
 
         Schema::table('project_file_chunks', function (Blueprint $table) {
             $table->uuid('project_id')->nullable(false)->change();
@@ -141,7 +155,9 @@ return new class extends Migration
             $table->index(['project_id', 'chunk_id']);
             $table->index(['project_id', 'chunk_sha1']);
         });
-        DB::statement('ALTER TABLE `project_file_chunks` ADD INDEX `project_file_chunks_project_id_path_index` (`project_id`, `path`(255))');
+        if (DB::connection()->getDriverName() === 'mysql') {
+            DB::statement('ALTER TABLE `project_file_chunks` ADD INDEX `project_file_chunks_project_id_path_index` (`project_id`, `path`(255))');
+        }
     }
 
     public function down(): void

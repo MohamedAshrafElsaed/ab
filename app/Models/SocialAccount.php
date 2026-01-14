@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
@@ -22,6 +23,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read \App\Models\User $user
+ *
  * @method static Builder<static>|SocialAccount newModelQuery()
  * @method static Builder<static>|SocialAccount newQuery()
  * @method static Builder<static>|SocialAccount query()
@@ -37,10 +39,13 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|SocialAccount whereTokenExpiresAt($value)
  * @method static Builder<static>|SocialAccount whereUpdatedAt($value)
  * @method static Builder<static>|SocialAccount whereUserId($value)
+ *
  * @mixin Eloquent
  */
 class SocialAccount extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'user_id',
         'provider',
@@ -73,7 +78,7 @@ class SocialAccount extends Model
 
     public function hasValidToken(): bool
     {
-        if (!$this->access_token) {
+        if (! $this->access_token) {
             return false;
         }
 

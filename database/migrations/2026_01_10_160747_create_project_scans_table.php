@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -10,7 +11,13 @@ return new class extends Migration
     {
         Schema::create('project_scans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('project_id')->constrained()->cascadeOnDelete();
+            // Use UUID foreign key for SQLite, regular foreignId for MySQL
+            if (DB::connection()->getDriverName() === 'sqlite') {
+                $table->uuid('project_id');
+                $table->foreign('project_id')->references('id')->on('projects')->cascadeOnDelete();
+            } else {
+                $table->foreignId('project_id')->constrained()->cascadeOnDelete();
+            }
             $table->string('status')->default('pending'); // pending, running, completed, failed
             $table->string('current_stage')->nullable();
             $table->unsignedTinyInteger('stage_percent')->default(0);

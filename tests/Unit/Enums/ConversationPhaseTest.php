@@ -17,9 +17,10 @@ class ConversationPhaseTest extends TestCase
         $this->assertTrue(ConversationPhase::Intake->canTransitionTo(ConversationPhase::Discovery));
     }
 
-    public function test_can_transition_from_intake_to_planning(): void
+    public function test_cannot_transition_from_intake_to_planning_directly(): void
     {
-        $this->assertTrue(ConversationPhase::Intake->canTransitionTo(ConversationPhase::Planning));
+        // Intake must go through Discovery before Planning
+        $this->assertFalse(ConversationPhase::Intake->canTransitionTo(ConversationPhase::Planning));
     }
 
     public function test_cannot_transition_from_completed_to_any(): void
@@ -29,10 +30,11 @@ class ConversationPhaseTest extends TestCase
         $this->assertFalse(ConversationPhase::Completed->canTransitionTo(ConversationPhase::Executing));
     }
 
-    public function test_cannot_transition_from_failed_to_any(): void
+    public function test_failed_can_transition_to_retry_phases(): void
     {
-        $this->assertFalse(ConversationPhase::Failed->canTransitionTo(ConversationPhase::Intake));
-        $this->assertFalse(ConversationPhase::Failed->canTransitionTo(ConversationPhase::Planning));
+        // Failed can retry by going back to Intake or Planning
+        $this->assertTrue(ConversationPhase::Failed->canTransitionTo(ConversationPhase::Intake));
+        $this->assertTrue(ConversationPhase::Failed->canTransitionTo(ConversationPhase::Planning));
         $this->assertFalse(ConversationPhase::Failed->canTransitionTo(ConversationPhase::Completed));
     }
 

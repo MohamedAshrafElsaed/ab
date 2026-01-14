@@ -8,20 +8,25 @@ return new class extends Migration
 {
     public function up(): void
     {
+        // Skip MySQL-specific indexes for non-MySQL databases
+        if (DB::connection()->getDriverName() !== 'mysql') {
+            return;
+        }
+
         // Add fulltext index on project_files for path searching
-        if (!$this->indexExists('project_files', 'project_files_path_fulltext')) {
+        if (! $this->indexExists('project_files', 'project_files_path_fulltext')) {
             DB::statement('ALTER TABLE `project_files` ADD FULLTEXT INDEX `project_files_path_fulltext` (`path`)');
         }
 
         // Add composite index for chunk retrieval queries
-        if (!$this->indexExists('project_file_chunks', 'project_file_chunks_retrieval_idx')) {
+        if (! $this->indexExists('project_file_chunks', 'project_file_chunks_retrieval_idx')) {
             Schema::table('project_file_chunks', function ($table) {
                 $table->index(['project_id', 'path', 'start_line', 'end_line'], 'project_file_chunks_retrieval_idx');
             });
         }
 
         // Add index for symbols_declared JSON queries (MySQL 8.0+)
-        if (!$this->indexExists('project_file_chunks', 'project_file_chunks_project_chunk_idx')) {
+        if (! $this->indexExists('project_file_chunks', 'project_file_chunks_project_chunk_idx')) {
             Schema::table('project_file_chunks', function ($table) {
                 $table->index(['project_id', 'chunk_id'], 'project_file_chunks_project_chunk_idx');
             });
@@ -30,6 +35,11 @@ return new class extends Migration
 
     public function down(): void
     {
+        // Skip for non-MySQL databases
+        if (DB::connection()->getDriverName() !== 'mysql') {
+            return;
+        }
+
         if ($this->indexExists('project_files', 'project_files_path_fulltext')) {
             DB::statement('ALTER TABLE `project_files` DROP INDEX `project_files_path_fulltext`');
         }
@@ -43,6 +53,7 @@ return new class extends Migration
     private function indexExists(string $table, string $indexName): bool
     {
         $indexes = DB::select("SHOW INDEX FROM `{$table}` WHERE Key_name = ?", [$indexName]);
+
         return count($indexes) > 0;
     }
 };

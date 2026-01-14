@@ -11,7 +11,13 @@ return new class extends Migration
     {
         Schema::create('project_file_chunks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('project_id')->constrained()->cascadeOnDelete();
+            // Use UUID foreign key for SQLite, regular foreignId for MySQL
+            if (DB::connection()->getDriverName() === 'sqlite') {
+                $table->uuid('project_id');
+                $table->foreign('project_id')->references('id')->on('projects')->cascadeOnDelete();
+            } else {
+                $table->foreignId('project_id')->constrained()->cascadeOnDelete();
+            }
             $table->string('chunk_id', 64);
             $table->string('path', 512);
             $table->unsignedInteger('start_line')->default(1);
@@ -24,8 +30,10 @@ return new class extends Migration
             $table->index(['project_id', 'chunk_id']);
         });
 
-        // Add prefix index for path (MySQL limitation)
-        DB::statement('ALTER TABLE `project_file_chunks` ADD INDEX `project_file_chunks_project_id_path_index` (`project_id`, `path`(255))');
+        // Add prefix index for path (MySQL only - SQLite doesn't support prefix indexes)
+        if (DB::connection()->getDriverName() === 'mysql') {
+            DB::statement('ALTER TABLE `project_file_chunks` ADD INDEX `project_file_chunks_project_id_path_index` (`project_id`, `path`(255))');
+        }
     }
 
     public function down(): void
